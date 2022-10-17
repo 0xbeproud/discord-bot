@@ -9,7 +9,6 @@ import messageCreate from "./listeners/messageCreate";
 import guildCreate from "./listeners/guildCreate";
 import guildDelete from "./listeners/guildDelete";
 import guildMemberAdd from "./listeners/guildMemberAdd";
-import debug from "./listeners/debug";
 import dotenv from 'dotenv';
 
 dotenv.config();

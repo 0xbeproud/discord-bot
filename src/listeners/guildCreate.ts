@@ -1,48 +1,5 @@
-import {
-    ActionRowBuilder,
-    ButtonBuilder,
-    ButtonStyle,
-    ChannelType,
-    Client,
-    EmbedBuilder,
-    Guild,
-    PermissionsBitField
-} from "discord.js";
-
-const joinMessage = () => {
-    const embed = new EmbedBuilder()
-        .setColor("Random")
-        .setThumbnail(`https://s3.coinmarketcap.com/static/img/portraits/621c22097aafe46422aa1161.png`)
-        .setTitle(`Verify your assets`)
-        .setDescription('This is a read-only connection. Do not share your private keys. We will never ask for your seed phrase. We will never DM you.')
-    // .addFields(
-    //     {name: "이름", value: `${interaction.guild?.name}`, inline: true},
-    // )
-    // .setTimestamp()
-    // .setFooter({
-    //     text: `Requested by ${guild.name}`,
-    //     iconURL: `${guild.iconURL()}`
-    // });
-
-    const row = new ActionRowBuilder<ButtonBuilder>()
-        .addComponents(
-            new ButtonBuilder()
-                .setLabel('Let\'s go')
-                .setURL("https://fanto.io")
-                .setStyle(ButtonStyle.Link),
-        ).addComponents(
-            new ButtonBuilder()
-                .setLabel('Docs')
-                .setURL("https://fanto.io")
-                .setStyle(ButtonStyle.Link),
-        );
-
-
-    return {
-        embeds: [embed],
-        components: [row]
-    }
-}
+import {ChannelType, Client, Guild, PermissionsBitField} from "discord.js";
+import {joinMessage} from "../messages/messages";
 
 export default (client: Client): void => {
     client.on("guildCreate", async (guild: Guild) => {

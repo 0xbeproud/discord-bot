@@ -1,19 +1,9 @@
-import {
-    ActionRowBuilder,
-    ApplicationCommandType,
-    ButtonBuilder,
-    ButtonStyle,
-    ChannelType,
-    Client,
-    CommandInteraction,
-    EmbedBuilder,
-    PermissionsBitField
-} from "discord.js";
+import {ApplicationCommandType, ChannelType, Client, CommandInteraction, PermissionsBitField} from "discord.js";
 import {Command} from "../Command";
 import {joinMessage} from "../messages/messages";
 
-export const GuildCreateSample: Command = {
-    name: "createguild",
+export const GuildCreate: Command = {
+    name: "guild-create",
     description: "Returns a greeting",
     type: ApplicationCommandType.ChatInput,
 
