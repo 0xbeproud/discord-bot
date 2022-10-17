@@ -1,13 +1,15 @@
 import {
     ActionRowBuilder,
+    ApplicationCommandType,
     ButtonBuilder,
     ButtonStyle,
     ChannelType,
     Client,
+    CommandInteraction,
     EmbedBuilder,
-    Guild,
     PermissionsBitField
 } from "discord.js";
+import {Command} from "../Command";
 
 const joinMessage = () => {
     const embed = new EmbedBuilder()
@@ -43,9 +45,17 @@ const joinMessage = () => {
         components: [row]
     }
 }
+export const GuildCreateSample: Command = {
+    name: "createguild",
+    description: "Returns a greeting",
+    type: ApplicationCommandType.ChatInput,
 
-export default (client: Client): void => {
-    client.on("guildCreate", async (guild: Guild) => {
+    run: async (client: Client, interaction: CommandInteraction) => {
+        const guild = interaction.guild
+        if (!guild) {
+            return
+        }
+
         console.log(`guildCreate: ${guild.name} / ${guild.id}`);
 
         const channelName = process.env.DISCORD_VERIFY_CHANNEL_NAME ?? "";
@@ -63,5 +73,7 @@ export default (client: Client): void => {
         }).then(channel => {
             channel.send(joinMessage());
         })
-    });
+
+        await interaction.followUp(joinMessage());
+    }
 };

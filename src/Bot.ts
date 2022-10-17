@@ -26,7 +26,7 @@ const client = new Client({
     ]
 });
 
-debug(client)
+// debug(client)
 ready(client)
 
 interactionCreate(client)

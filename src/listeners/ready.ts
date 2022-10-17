@@ -25,6 +25,6 @@ export default (client: Client): void => {
         //     })
         // })
 
-        client.user.setActivity("the upright organ");
+        client.user.setActivity("hello");
     });
 };
