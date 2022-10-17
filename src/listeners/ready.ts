@@ -1,4 +1,4 @@
-import { Client } from "discord.js";
+import {Client} from "discord.js";
 import {Commands} from "../Commands";
 
 export default (client: Client): void => {
@@ -9,6 +9,22 @@ export default (client: Client): void => {
 
         await client.application.commands.set(Commands)
 
-        console.log(`${client.user?.tag} is online`);
+        // client.user.setStatus(PresenceStatusData(), {type: "WATCHING"})
+
+        console.log(`${client.user.username} is online`);
+        console.log(`I am ready! Logged in as ${client.user.tag}!`);
+
+        // const guilds = client.guilds.cache.map(guild => guild);
+        // console.log(guilds)
+
+        // guilds.forEach(async guild => {
+        //     console.log(`==> ${guild.id}`)
+        //     const channels = await guild.channels.fetch()
+        //     channels.filter(channel => {
+        //         return channel.type === 'text';
+        //     })
+        // })
+
+        client.user.setActivity("the upright organ");
     });
 };
