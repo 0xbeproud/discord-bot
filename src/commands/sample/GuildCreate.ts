@@ -1,6 +1,6 @@
 import {ApplicationCommandType, ChannelType, Client, CommandInteraction, PermissionsBitField} from "discord.js";
-import {Command} from "../Command";
-import {joinMessage} from "../messages/messages";
+import {Command} from "../../Command";
+import {joinMessage} from "../../messages/messages";
 
 export const GuildCreate: Command = {
     name: "guild-create",
