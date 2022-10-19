@@ -1,5 +1,5 @@
 import {ApplicationCommandType, Client, CommandInteraction, EmbedBuilder} from "discord.js";
-import {Command} from "../Command";
+import {Command} from "./base/Command";
 
 export const ServerInfo: Command = {
     name: "serverinfo",
