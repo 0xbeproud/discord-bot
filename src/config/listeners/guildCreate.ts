@@ -1,12 +1,11 @@
 import {ChannelType, Client, Guild, PermissionsBitField} from "discord.js";
-import {joinMessage} from "../messages/messages";
+import {joinMessage} from "../../messages/messages";
 
 export default (client: Client): void => {
     client.on("guildCreate", async (guild: Guild) => {
         console.log(`guildCreate: ${guild.name} / ${guild.id}`);
 
-        const channelName = process.env.DISCORD_VERIFY_CHANNEL_NAME ?? "";
-
+        const channelName = "superdesire-join";
         guild.channels.create({
             name: channelName,
             type: ChannelType.GuildText,

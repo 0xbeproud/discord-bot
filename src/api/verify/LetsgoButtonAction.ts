@@ -1,4 +1,4 @@
-import {ButtonAction} from "./base/ButtonAction";
+import {ButtonAction} from "../../config/actions/ButtonAction";
 import {async} from "q";
 import {ButtonInteraction, Client} from "discord.js";
 
