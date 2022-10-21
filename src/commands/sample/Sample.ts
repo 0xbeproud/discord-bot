@@ -6,7 +6,7 @@ import {
     CommandInteraction,
     EmbedBuilder
 } from "discord.js";
-import {Command} from "./base/Command";
+import {Command} from "../base/Command";
 
 export const Sample: Command = {
     name: "sample",
