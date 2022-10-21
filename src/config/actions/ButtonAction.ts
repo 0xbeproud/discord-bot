@@ -5,5 +5,5 @@ export interface ButtonActionData {
 }
 
 export interface ButtonAction extends ButtonActionData {
-    run: (client: Client, interaction: ButtonInteraction) => void;
+    run: (client: Client, interaction: ButtonInteraction) => Promise<void>;
 }

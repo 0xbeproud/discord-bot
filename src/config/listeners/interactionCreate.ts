@@ -30,7 +30,11 @@ const handleSlashCommand = async (client: Client, interaction: CommandInteractio
 
     await interaction.deferReply();
 
-    slashCommand.run(client, interaction);
+    try {
+        await slashCommand.run(client, interaction);
+    } catch (e) {
+        console.error(e)
+    }
 };
 
 const handleButtonAction = async (client: Client, interaction: ButtonInteraction): Promise<void> => {
@@ -40,7 +44,9 @@ const handleButtonAction = async (client: Client, interaction: ButtonInteraction
         return;
     }
 
-    await interaction.deferReply();
-
-    buttonAction.run(client, interaction);
+    try {
+        await buttonAction.run(client, interaction);
+    } catch (e) {
+        console.error(e)
+    }
 }
