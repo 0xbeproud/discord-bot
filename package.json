@@ -4,8 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node src/Bot.ts",
-    "dev": "cross-env NODE_ENV=development nodemon src/Bot.ts"
+    "build": "tsc",
+    "dev": "nodemon -r dotenv/config src/Bot.ts",
+    "start": "yarn build && pm2 start ecosystem.config.js",
+    "docker:build": "docker build -t discord-bot .",
+    "docker:run": "docker run --rm --env-file=.env --name discord-bot discord-bot"
   },
   "dependencies": {
     "discord-api-types": "^0.37.14",
@@ -32,6 +35,16 @@
     "prettier-plugin-organize-imports": "^1.1.1",
     "ts-node": "^10.9.1",
     "tslint": "6.1.x",
-    "typescript": "^4.8.4"
+    "typescript": "^4.8.4",
+    "caver-js": "^1.9.0",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
+    "discord.js": "^14.6.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "global": "^4.4.0",
+    "mysql2": "^2.3.3",
+    "pm2": "^5.2.2",
+    "react-scripts": "^5.0.1"
   }
 }

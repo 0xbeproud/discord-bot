@@ -1,6 +1,6 @@
-import {Client, CommandInteraction, Interaction} from "discord.js";
-import {Commands} from "../Commands";
-import {letsGoButtonClickMessage} from "../messages/messages";
+import {ButtonInteraction, Client, CommandInteraction, Interaction} from "discord.js";
+import {Commands} from "../../commands/base/Commands";
+import {ButtonActions} from "../actions/ButtonActions";
 
 export default (client: Client): void => {
     client.on("interactionCreate", async (interaction: Interaction) => {
@@ -12,9 +12,7 @@ export default (client: Client): void => {
         console.log(`interaction.isSelectMenu():${interaction.isSelectMenu()} `)
 
         if (interaction.isButton()) {
-            console.log(interaction.component)
-            await interaction.reply(letsGoButtonClickMessage(interaction))
-
+            await handleButtonAction(client, interaction)
         } else {
             if (!interaction.isChatInputCommand())
                 return
@@ -34,3 +32,15 @@ const handleSlashCommand = async (client: Client, interaction: CommandInteractio
 
     slashCommand.run(client, interaction);
 };
+
+const handleButtonAction = async (client: Client, interaction: ButtonInteraction): Promise<void> => {
+    const buttonAction = ButtonActions.find(b => b.customId === interaction.customId)
+    if (!buttonAction) {
+        await interaction.followUp({content: "An error has occurred"});
+        return;
+    }
+
+    await interaction.deferReply();
+
+    buttonAction.run(client, interaction);
+}

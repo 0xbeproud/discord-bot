@@ -1,24 +1,36 @@
-FROM node:16-alpine
+# 1. Install dependencies only when needed
+FROM node:18-alpine AS deps
 
-LABEL author="Logan" maintainer="logan.beproud@krosslab.io"
+RUN apk add --no-cache libc6-compat
+RUN apk add --update python3 make g++ && rm -rf /var/cache/apk/*
 
-RUN mkdir -p /app \
-    && apk add --no-cache git
+COPY package.json .
+COPY yarn.lock .
+
+RUN yarn install
+
+# 2. Rebuild the source code only when needed
+FROM node:18-alpine AS builder
+
+COPY --from=deps /node_modules ./node_modules
+COPY . .
+
+RUN yarn build
+
+# 3. Production image, copy all the files and run next
+FROM node:18-alpine AS runner
+
+USER node
+
+ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
+ENV TZ Asia/Seoul
 
 WORKDIR /app
+COPY --from=builder /node_modules ./node_modules
+COPY --from=builder /dist ./dist
 
-COPY package-lock.json /app
-COPY package.json /app
+COPY ecosystem.config.js ecosystem.config.js
 
-RUN /usr/local/bin/npm install --unsafe-perm
+EXPOSE 8000
 
-COPY . /app
-
-RUN /usr/local/bin/npm run build
-
-ENV NODE_ENV=production
-
-EXPOSE 3000
-
-ENTRYPOINT ["/usr/local/bin/npm"]
-CMD ["start"]
+CMD ["./node_modules/.bin/pm2-runtime", "start", "ecosystem.config.js", "--env=.env"]
